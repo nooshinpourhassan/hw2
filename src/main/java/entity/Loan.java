@@ -31,7 +31,6 @@ public class Loan extends BaseEntity<Long> {
     public String toString() {
         return "Loan{" +
                 "loanEnum=" + loanEnum +
-                ", student=" + student +
                 ", debtBalance=" + debtBalance +
                 '}';
     }
