@@ -6,6 +6,7 @@ import entity.enums.GradeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
@@ -17,6 +18,7 @@ import java.time.Year;
 @Entity
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 public class Student extends BaseEntity<Long> {
     @Pattern(regexp = "^[a-zA-Z]+([\\s-][a-zA-Z]+)*$", message = "Invalid first name format")
