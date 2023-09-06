@@ -1,9 +1,14 @@
 package service;
 
-import base.repository.BaseRepository;
 import base.service.BaseService;
 import entity.Student;
 
-public interface StudentService extends BaseService<Student,Long> {
+import java.util.Optional;
 
+public interface StudentService extends BaseService<Student,Long> {
+    Student logIn(String username, String password);
+
+    boolean  isUserExistsByUsername(String username);
+
+    Optional<Student> getUserByUsername(String username);
 }

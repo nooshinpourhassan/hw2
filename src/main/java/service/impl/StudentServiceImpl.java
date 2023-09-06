@@ -2,11 +2,14 @@ package service.impl;
 
 import base.service.BaseServiceImpl;
 import entity.Student;
+import exception.PasswordInvalidExcepton;
+import exception.UserNotFoundException;
 import repository.StudentRepository;
 import service.StudentService;
 
 import javax.persistence.EntityManager;
 import javax.validation.Validator;
+import java.util.Optional;
 
 public class StudentServiceImpl extends BaseServiceImpl<Student,Long, StudentRepository> implements StudentService {
 
@@ -18,5 +21,26 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long, StudentRep
     @Override
     public Class<Student> getEntityClass() {
         return Student.class;
+    }
+
+    @Override
+    public Student logIn(String username, String password) {
+        if (! isUserExistsByUsername(username))
+            throw new UserNotFoundException("user not found...");
+        Optional<Student> user = getUserByUsername(username);
+        Student student = user.get();
+        if (!student.getPassword().equals(password))
+            throw new PasswordInvalidExcepton("Password is wrong");
+        return student;
+    }
+
+    @Override
+    public boolean isUserExistsByUsername(String username) {
+        return repository.isStudentExistsByUsername(username);
+    }
+
+    @Override
+    public Optional<Student> getUserByUsername(String username) {
+        return repository.getUserByUsername(username);
     }
 }

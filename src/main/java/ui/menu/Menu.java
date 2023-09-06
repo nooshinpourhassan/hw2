@@ -5,9 +5,11 @@ import java.util.Random;
 import entity.Student;
 import entity.University;
 import entity.enums.GradeEnum;
+import exception.UserNotFoundException;
 import ui.Printer;
 import util.ApplicationContext;
 import util.Constant;
+import util.SecurityContext;
 
 import java.time.LocalDate;
 import java.time.Year;
@@ -100,7 +102,17 @@ public class Menu {
         String username = scanner.next();
         Printer.printMessage("please enter password :");
         String password = scanner.next();
-        Student student = new Student();
+        Student student = null;
+        try {
+            student = ApplicationContext.getStudentService().logIn(username, password);
+        } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+        SecurityContext.username=student.getNationalCode();
+        SecurityContext.id=student.getId();
+        LoanMenu loanMenu= new LoanMenu();
+        loanMenu.loanMenu();
     }
 
     private static Year getYear() {
