@@ -6,9 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -16,6 +14,8 @@ import javax.validation.constraints.NotNull;
 @Getter
 @AllArgsConstructor
 public class Loan extends BaseEntity<Long> {
+
+    @Enumerated(EnumType.STRING)
     @NotNull
     private LoanEnum loanEnum;
     @OneToOne

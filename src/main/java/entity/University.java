@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -19,6 +21,7 @@ public class University extends BaseEntity<Long> {
     @Pattern(regexp = "^[a-zA-Z]+([\\s-][a-zA-Z]+)*$", message = "Invalid first name format")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private UniversityEnum universityEnum;
 
     @OneToMany(mappedBy = "university")

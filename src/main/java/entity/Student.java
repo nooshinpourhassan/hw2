@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
@@ -37,25 +38,29 @@ public class Student extends BaseEntity<Long> {
     private String motherName;
 
     @Column(name = "national_cod")
-    @Pattern(regexp = "^\\d{10}$", message = "National code must be a 10-digit number")
+    @Pattern(regexp = "^\\d{5}$", message = "National code must be a 5-digit number")
     private String nationalCode;
 
     @Past(message = "Year must be in the past")
     private LocalDate birthdate;
 
     @Column(name = "student_number")
-    @Pattern(regexp = "^\\d{10}$", message = "Student number must be a 10-digit number")
+    @Pattern(regexp = "^\\d{5}$", message = "Student number must be a 5-digit number")
     private String studentNumber;
 
     @Column(name = "entering_year")
     @PastOrPresent(message = "Year must be in the past or present")
     private Year enteringYear;
 
+    @Enumerated(EnumType.STRING)
     private GradeEnum gradeEnum;
 
     @ManyToOne
     @JoinColumn(name = "university_id")
     private University university;
+
+    @NotNull
+    private String password;
 
     @Nullable
     @OneToOne

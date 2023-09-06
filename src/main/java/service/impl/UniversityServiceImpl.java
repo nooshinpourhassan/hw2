@@ -7,6 +7,7 @@ import service.UniversityService;
 
 import javax.persistence.EntityManager;
 import javax.validation.Validator;
+import java.util.List;
 
 public class UniversityServiceImpl extends BaseServiceImpl<University,Long, UniversityRepository> implements UniversityService {
     public UniversityServiceImpl(UniversityRepository repository, Validator validator, EntityManager em) {
@@ -16,5 +17,10 @@ public class UniversityServiceImpl extends BaseServiceImpl<University,Long, Univ
     @Override
     public Class<University> getEntityClass() {
         return University.class;
+    }
+
+    @Override
+    public List<University> findUniversity(String title) {
+        return repository.findUniversity(title);
     }
 }
