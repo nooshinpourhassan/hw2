@@ -4,6 +4,7 @@ import base.service.BaseServiceImpl;
 import entity.Student;
 import exception.PasswordInvalidExcepton;
 import exception.UserNotFoundException;
+import exception.UsernameAlreadyExistsException;
 import repository.StudentRepository;
 import service.StudentService;
 
@@ -42,5 +43,16 @@ public class StudentServiceImpl extends BaseServiceImpl<Student,Long, StudentRep
     @Override
     public Optional<Student> getUserByUsername(String username) {
         return repository.getUserByUsername(username);
+    }
+
+    @Override
+    public Student signUp(Student student) {
+        if (isUserExistsByUsername(student.getNationalCode()))
+            throw new UsernameAlreadyExistsException("username is exists");
+        if (!isValid(student))
+            return null;
+        Student student1 = saveOrUpdate(student);
+        System.out.println("Done , please LogIn...");
+        return student1;
     }
 }

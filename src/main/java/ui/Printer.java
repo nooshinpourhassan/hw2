@@ -28,7 +28,7 @@ public class Printer {
     }
     public static void printProfile() {
         System.out.println("|---------------------------------");
-        System.out.println("|>>HOME welcome dear " + SecurityContext.username);
+        System.out.println("|>>HOME welcome dear " + SecurityContext.name);
         System.out.println("|");
     }
 }

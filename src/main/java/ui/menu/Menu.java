@@ -59,7 +59,7 @@ public class Menu {
         String generatePassword = generatePassword();
         student.setPassword(generatePassword);
 
-        ApplicationContext.getStudentService().saveOrUpdate(student);
+        ApplicationContext.getStudentService().signUp(student);
         System.out.println("Your username :" + username);
         System.out.println("Your password :" + generatePassword);
         System.out.println("pleas Login...... ^_^ ");
@@ -111,6 +111,7 @@ public class Menu {
         }
         SecurityContext.username=student.getNationalCode();
         SecurityContext.id=student.getId();
+        SecurityContext.name=student.getName();
         LoanMenu loanMenu= new LoanMenu();
         loanMenu.loanMenu();
     }

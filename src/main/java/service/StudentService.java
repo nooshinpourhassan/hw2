@@ -11,4 +11,5 @@ public interface StudentService extends BaseService<Student,Long> {
     boolean  isUserExistsByUsername(String username);
 
     Optional<Student> getUserByUsername(String username);
+    Student signUp(Student student);
 }

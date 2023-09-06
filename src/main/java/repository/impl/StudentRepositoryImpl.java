@@ -21,7 +21,7 @@ public class StudentRepositoryImpl extends BaseRepositoryImpl<Student,Long> impl
 
     @Override
     public boolean isStudentExistsByUsername(String username) {
-        TypedQuery<Long> query = em.createQuery("select count( u ) from " + getEntityClass().getSimpleName() + " u where u.username= :username", Long.class);
+        TypedQuery<Long> query = em.createQuery("select count( u ) from " + getEntityClass().getSimpleName() + " u where u.nationalCode= :username", Long.class);
         query.setParameter("username", username);
         Long count = query.getSingleResult();
         return count > 0;
@@ -30,7 +30,7 @@ public class StudentRepositoryImpl extends BaseRepositoryImpl<Student,Long> impl
     @Override
     public Optional<Student> getUserByUsername(String username) {
         TypedQuery<Student> query =
-                em.createQuery("from " + getEntityClass().getSimpleName() + " u where u.username= :username ", Student.class);
+                em.createQuery("from " + getEntityClass().getSimpleName() + " u where u.nationalCode= :username ", Student.class);
 
         query.setParameter("username", username);
         try {
