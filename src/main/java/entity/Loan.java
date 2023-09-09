@@ -8,6 +8,7 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Builder
@@ -23,6 +24,9 @@ public class Loan extends BaseEntity<Long> {
     @Column(name = "debt_balance")
     private double debtBalance;
 
+    @Column(name = "loan_date")
+    private LocalDate loanDate;
+
     public Loan() {
 
     }
@@ -32,6 +36,7 @@ public class Loan extends BaseEntity<Long> {
         return "Loan{" +
                 "loanEnum=" + loanEnum +
                 ", debtBalance=" + debtBalance +
+                ", loanDate=" + loanDate +
                 '}';
     }
 }

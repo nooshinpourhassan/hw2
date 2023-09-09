@@ -2,11 +2,14 @@ package service.impl;
 
 import base.service.BaseServiceImpl;
 import entity.Loan;
+import entity.enums.LoanEnum;
 import repository.LoanRepository;
 import service.LoanService;
 
 import javax.persistence.EntityManager;
 import javax.validation.Validator;
+import java.util.List;
+import java.util.Optional;
 
 public class LoanServiceImpl extends BaseServiceImpl<Loan,Long, LoanRepository> implements LoanService {
     public LoanServiceImpl(LoanRepository repository, Validator validator, EntityManager em) {
@@ -16,5 +19,10 @@ public class LoanServiceImpl extends BaseServiceImpl<Loan,Long, LoanRepository> 
     @Override
     public Class<Loan> getEntityClass() {
         return Loan.class;
+    }
+
+    @Override
+    public Optional<Loan> getLoanById(Long id, String loanEnum) {
+        return repository.getLoanById(id, loanEnum);
     }
 }

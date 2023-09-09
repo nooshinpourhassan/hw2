@@ -15,6 +15,7 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.Year;
+import java.util.List;
 
 @Entity
 @Builder
