@@ -1,6 +1,7 @@
 package entity;
 
 import base.entity.BaseEntity;
+import entity.enums.GradeEnum;
 import entity.enums.LoanEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +27,9 @@ public class Loan extends BaseEntity<Long> {
 
     @Column(name = "loan_date")
     private LocalDate loanDate;
+
+    @Enumerated(EnumType.STRING)
+    private GradeEnum gradeEnum;
 
     public Loan() {
 

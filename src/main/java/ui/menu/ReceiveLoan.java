@@ -1,17 +1,23 @@
 package ui.menu;
 
+import entity.Information;
 import entity.Loan;
 import entity.Student;
+import entity.enums.City;
 import entity.enums.GradeEnum;
 import entity.enums.LoanEnum;
 import entity.enums.UniversityEnum;
 import ui.Date;
+import ui.Printer;
 import util.ApplicationContext;
+import util.Constant;
 import util.SecurityContext;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static ui.menu.Menu.scanner;
 
 
 public class ReceiveLoan {
@@ -147,7 +153,119 @@ public class ReceiveLoan {
     }
 
     public static void housingLoan() {
-
+        Student student = ApplicationContext.getStudentService().findById(SecurityContext.id).get();
+        Information information = new Information();
+        if (!date.checkDate())
+            System.out.println("Sorry, the loan registration window is currently closed.");
+        else {
+            Optional<Loan> optionalLoan = ApplicationContext.getLoanService().getLoanById(student.getId(), LoanEnum.HOUSING_LOAN);
+            List<Loan> list1 = optionalLoan.stream()
+                    .filter(list -> list.getGradeEnum().equals(student.getGradeEnum())).toList();
+            if (!list1.isEmpty())
+                System.out.println("You applied for this Grade");
+            else {
+                System.out.println("please enter your wife or husband national code :");
+                String nationalCode = scanner.next();
+                Optional<Student> userByUsername = ApplicationContext.getStudentService().getUserByUsername(nationalCode);
+                if (!userByUsername.isEmpty()){
+                    Student partner = userByUsername.get();
+                    Optional<Loan> partnerLoan = ApplicationContext.getLoanService().getLoanById(partner.getId(), LoanEnum.HOUSING_LOAN);
+                    List<Loan> list = partnerLoan.stream().filter(loan -> loan.getGradeEnum().equals(partner.getGradeEnum())).toList();
+                    if (!list.isEmpty())
+                        System.out.println("your wife or husband applied for this Grade ");
+                    else {
+                     if (ApplicationContext.getInformationService().isUserExistsByUsername(student.getNationalCode())){
+                         Loan loan= Loan.builder()
+                                 .student(student)
+                                 .loanDate(LocalDate.now())
+                                 .loanEnum(LoanEnum.HOUSING_LOAN)
+                                 .gradeEnum(student.getGradeEnum())
+                                 .debtBalance(student.getInformation().getCity().getLoan()).build();
+                         try {
+                             ApplicationContext.getLoanService().saveOrUpdate(loan);
+                         }catch (Exception e){
+                             System.out.println(e.getMessage());
+                         }
+                     }else {
+                         System.out.println("enter your wife or husband national Code : ");
+                         information.setPartnerNationalCode(scanner.next());
+                         information.setStudent(student);
+                         System.out.println("enter your address : ");
+                         information.setAddress(scanner.nextLine());
+                         scanner.next();
+                         System.out.println("enter your Housing Rental Number :  6-digit");
+                         information.setHousingRentalNumber(scanner.next());
+                         information.setCity(getCity());
+                         try {
+                             ApplicationContext.getInformationService().saveOrUpdate(information);
+                             Loan loan= Loan.builder()
+                                     .student(student)
+                                     .loanDate(LocalDate.now())
+                                     .loanEnum(LoanEnum.HOUSING_LOAN)
+                                     .gradeEnum(student.getGradeEnum())
+                                     .debtBalance(student.getInformation().getCity().getLoan()).build();
+                             ApplicationContext.getLoanService().saveOrUpdate(loan);
+                         }catch (Exception e){
+                             System.out.println(e.getMessage());
+                         }
+                     }
+                    }
+                }else {
+                    if (ApplicationContext.getInformationService().isUserExistsByUsername(student.getNationalCode())){
+                        Loan loan= Loan.builder()
+                                .student(student)
+                                .loanDate(LocalDate.now())
+                                .loanEnum(LoanEnum.HOUSING_LOAN)
+                                .gradeEnum(student.getGradeEnum())
+                                .debtBalance(student.getInformation().getCity().getLoan()).build();
+                        try {
+                            ApplicationContext.getLoanService().saveOrUpdate(loan);
+                        }catch (Exception e){
+                            System.out.println(e.getMessage());
+                        }
+                    }else {
+                        System.out.println("enter your wife or husband national Code : ");
+                        information.setPartnerNationalCode(scanner.next());
+                        information.setStudent(student);
+                        System.out.println("enter your address : ");
+                        information.setAddress(scanner.nextLine());
+                        scanner.next();
+                        System.out.println("enter your Housing Rental Number :  6-digit");
+                        information.setHousingRentalNumber(scanner.next());
+                        information.setCity(getCity());
+                        try {
+                            ApplicationContext.getInformationService().saveOrUpdate(information);
+                            Loan loan= Loan.builder()
+                                    .student(student)
+                                    .loanDate(LocalDate.now())
+                                    .loanEnum(LoanEnum.HOUSING_LOAN)
+                                    .gradeEnum(student.getGradeEnum())
+                                    .debtBalance(student.getInformation().getCity().getLoan()).build();
+                            ApplicationContext.getLoanService().saveOrUpdate(loan);
+                        }catch (Exception e){
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                }
+            }
+            }
+        }
+    private static City getCity() {
+        while (true) {
+            Printer.printItem(Constant.cityMenu , "choose one :");
+            String chosenItem = scanner.next();
+            switch (chosenItem) {
+                case "1" -> {
+                    return City.TEHRAN;
+                }
+                case "2" -> {
+                    return City.METROPOLISES;
+                }
+                case "3" -> {
+                    return City.OTHER_CITY;
+                }
+                default -> Printer.printMessage("Wrong input");
+            }
+        }
     }
-
 }

@@ -25,4 +25,11 @@ public class LoanServiceImpl extends BaseServiceImpl<Loan,Long, LoanRepository> 
     public Optional<Loan> getLoanById(Long id, LoanEnum loanEnum) {
         return repository.getLoanById(id, loanEnum);
     }
+
+    @Override
+    public Loan saveOrUpdate(Loan entity) {
+        if (!isValid(entity))
+            return null;
+        return super.saveOrUpdate(entity);
+    }
 }

@@ -7,9 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Builder
@@ -22,10 +21,15 @@ public class Information extends BaseEntity<Long> {
 
     private String address;
 
-    private String wifeNationalCode;
+    @Column(unique = true)
+    @Pattern(regexp = "^\\d{5}$", message = "National code must be a 6-digit number")
+    private String partnerNationalCode;
 
+    @Column(unique = true)
+    @Pattern(regexp = "^\\d{6}$", message = "National code must be a 6-digit number")
     private String housingRentalNumber;
 
+    @Enumerated(EnumType.STRING)
     private City city;
 
     public Information() {

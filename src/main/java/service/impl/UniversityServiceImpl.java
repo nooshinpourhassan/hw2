@@ -23,4 +23,11 @@ public class UniversityServiceImpl extends BaseServiceImpl<University,Long, Univ
     public List<University> findUniversity(String title) {
         return repository.findUniversity(title);
     }
+
+    @Override
+    public University saveOrUpdate(University entity) {
+        if (!isValid(entity))
+            return null;
+        return super.saveOrUpdate(entity);
+    }
 }

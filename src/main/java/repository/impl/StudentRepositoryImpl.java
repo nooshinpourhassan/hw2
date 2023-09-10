@@ -40,4 +40,5 @@ public class StudentRepositoryImpl extends BaseRepositoryImpl<Student,Long> impl
             return Optional.empty();
         }
     }
+
 }

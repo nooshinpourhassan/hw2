@@ -38,14 +38,14 @@ public class Student extends BaseEntity<Long> {
     @Pattern(regexp = "^[a-zA-Z]+([\\s-][a-zA-Z]+)*$", message = "Invalid first name format")
     private String motherName;
 
-    @Column(name = "national_cod")
+    @Column(name = "national_cod" , unique = true)
     @Pattern(regexp = "^\\d{5}$", message = "National code must be a 5-digit number")
     private String nationalCode;
 
     @Past(message = "Year must be in the past")
     private LocalDate birthdate;
 
-    @Column(name = "student_number")
+    @Column(name = "student_number" , unique = true)
     @Pattern(regexp = "^\\d{5}$", message = "Student number must be a 5-digit number")
     private String studentNumber;
 
