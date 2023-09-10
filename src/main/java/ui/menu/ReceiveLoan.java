@@ -147,6 +147,7 @@ public class ReceiveLoan {
     }
 
     public static void housingLoan() {
+
     }
 
 }

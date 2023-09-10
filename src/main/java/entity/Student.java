@@ -67,8 +67,10 @@ public class Student extends BaseEntity<Long> {
     @OneToOne
     private Loan loan;
 
-    @OneToOne(cascade =CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private BankCart bankCart;
+    @OneToOne
+    private Information information;
 
     public Student() {
     }

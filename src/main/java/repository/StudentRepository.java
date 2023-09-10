@@ -1,6 +1,7 @@
 package repository;
 
 import base.repository.BaseRepository;
+import entity.Information;
 import entity.Student;
 
 import java.util.Optional;
