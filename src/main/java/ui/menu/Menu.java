@@ -2,6 +2,7 @@ package ui.menu;
 
 import java.util.Random;
 
+import entity.BankCart;
 import entity.Student;
 import entity.University;
 import entity.enums.GradeEnum;
@@ -56,6 +57,7 @@ public class Menu {
         student.setGradeEnum(gradeEnum());
         Printer.printMessage("please choose your university  :");
         student.setUniversity(chooseUniversity());
+        student.setBankCart(saveBankCart());
         String generatePassword = generatePassword();
         student.setPassword(generatePassword);
 
@@ -63,6 +65,19 @@ public class Menu {
         System.out.println("Your username :" + username);
         System.out.println("Your password :" + generatePassword);
         System.out.println("pleas Login...... ^_^ ");
+    }
+
+    private static BankCart saveBankCart() {
+        BankCart bankCart=new BankCart();
+        System.out.println("please Enter the bank account number :");
+        bankCart.setCartNumber(scanner.next());
+        System.out.println("please enter the bank account EX year  :");
+        bankCart.setYear(Year.of(scanner.nextInt()));
+        System.out.println("please enter the bank account EX day  :");
+        bankCart.setDay(scanner.nextInt());
+        System.out.println("please enter the bank account cvv2  :");
+        bankCart.setCvv2(scanner.nextInt());
+        return bankCart;
     }
 
     private static String generatePassword() {
@@ -158,17 +173,30 @@ public class Menu {
                     return GradeEnum.ASSOCIATE;
                 }
                 case "2" -> {
-                    return GradeEnum.BACHELOR;
+                    return GradeEnum.DISCONTINUOUS_BACHELOR;
                 }
                 case "3" -> {
-                    return GradeEnum.MASTER;
+                    return GradeEnum.CONTINUOUS_BACHELOR;
                 }
                 case "4" -> {
-                    return GradeEnum.DOCTOR;
+                    return GradeEnum.DISCONTINUOUS_MASTER;
+                }
+                case "5" -> {
+                    return GradeEnum.CONTINUOUS_MASTER;
+                }
+                case "6" -> {
+                    return GradeEnum.DISCONTINUOUS_PROFESSIONAL_DOCTOR;
+                }
+                case "7" -> {
+                    return GradeEnum.CONTINUOUS_DOCTOR;
+                }
+                case "8" -> {
+                    return GradeEnum.PROFESSIONAL_DOCTOR;
                 }
                 default -> Printer.printMessage("Wrong input");
             }
         }
 
     }
+
 }

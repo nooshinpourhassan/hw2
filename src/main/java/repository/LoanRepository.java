@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LoanRepository extends BaseRepository<Loan,Long> {
-    Optional<Loan> getLoanById(Long id , String loanEnum);
+    Optional<Loan> getLoanById(Long id , LoanEnum loanEnum);
 }

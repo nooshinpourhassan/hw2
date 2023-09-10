@@ -22,7 +22,7 @@ public class LoanServiceImpl extends BaseServiceImpl<Loan,Long, LoanRepository> 
     }
 
     @Override
-    public Optional<Loan> getLoanById(Long id, String loanEnum) {
+    public Optional<Loan> getLoanById(Long id, LoanEnum loanEnum) {
         return repository.getLoanById(id, loanEnum);
     }
 }

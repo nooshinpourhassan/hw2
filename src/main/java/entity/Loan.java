@@ -19,7 +19,7 @@ public class Loan extends BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     @NotNull
     private LoanEnum loanEnum;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Student student;
     @Column(name = "debt_balance")
     private double debtBalance;

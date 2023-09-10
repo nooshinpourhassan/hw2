@@ -22,13 +22,13 @@ public class LoanRepositoryImpl extends BaseRepositoryImpl<Loan,Long> implements
     }
 
     @Override
-    public Optional<Loan> getLoanById(Long id, String loanEnum) {
-        TypedQuery<Loan> query= em.createQuery("SELECT l FROM  Loan l where l.student=:id and l.loanEnum=:loanEnum" , Loan.class);
+    public Optional<Loan> getLoanById(Long id, LoanEnum loanEnum) {
+        TypedQuery<Loan> query= em.createQuery("SELECT l FROM  Loan l where l.student.id=:id and l.loanEnum=:loanEnum" ,
+                Loan.class);
         query.setParameter("id",id);
         query.setParameter("loanEnum",loanEnum);
         try {
-            List<Loan> loan= query.getResultList();
-            return Optional.of((Loan) loan);
+         return query.getResultList().stream().findAny();
         }catch (NoResultException e){
             return Optional.empty();
         }

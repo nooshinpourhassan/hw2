@@ -1,23 +1,18 @@
 package entity;
 
 import entity.enums.GradeEnum;
+import entity.enums.LoanEnum;
 import entity.enums.UniversityEnum;
+import util.ApplicationContext;
 
 import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        University university =University.builder()
-                .name("markazi")
-                .universityEnum(UniversityEnum.AZAD_UNIVERSITY)
-                .build();
-        Student student= Student.builder()
-                .name("maryam")
-                .gradeEnum(GradeEnum.MASTER)
-                .university(university)
-                .birthdate(LocalDate.of(1998,2,5))
-                .build();
-
-        System.out.println(student);
+//Loan loan= Loan.builder()
+//        .debtBalance(12345)
+//        .loanDate(LocalDate.now())
+//        .loanEnum(LoanEnum.TUITION_LOAN)
+//        .student(ApplicationContext.getStudentService().findById(6L).get()).build();
     }
 }
