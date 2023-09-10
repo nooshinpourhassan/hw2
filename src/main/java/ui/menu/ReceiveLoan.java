@@ -16,6 +16,7 @@ import util.SecurityContext;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 import static ui.menu.Menu.scanner;
 
@@ -174,7 +175,7 @@ public class ReceiveLoan {
                     if (!list.isEmpty())
                         System.out.println("your wife or husband applied for this Grade ");
                     else {
-                     if (ApplicationContext.getInformationService().isUserExistsByUsername(student.getNationalCode())){
+                     if (ApplicationContext.getInformationService().isInformationExistsByUsername(student.getNationalCode())){
                          Loan loan= Loan.builder()
                                  .student(student)
                                  .loanDate(LocalDate.now())
@@ -190,11 +191,10 @@ public class ReceiveLoan {
                          System.out.println("enter your wife or husband national Code : ");
                          information.setPartnerNationalCode(scanner.next());
                          information.setStudent(student);
-                         System.out.println("enter your address : ");
-                         information.setAddress(scanner.nextLine());
-                         scanner.next();
                          System.out.println("enter your Housing Rental Number :  6-digit");
                          information.setHousingRentalNumber(scanner.next());
+                         System.out.println("enter your address : ");
+                         information.setAddress(scanner.next());
                          information.setCity(getCity());
                          try {
                              ApplicationContext.getInformationService().saveOrUpdate(information);
@@ -211,7 +211,7 @@ public class ReceiveLoan {
                      }
                     }
                 }else {
-                    if (ApplicationContext.getInformationService().isUserExistsByUsername(student.getNationalCode())){
+                    if (ApplicationContext.getInformationService().isInformationExistsByUsername(student.getNationalCode())){
                         Loan loan= Loan.builder()
                                 .student(student)
                                 .loanDate(LocalDate.now())
@@ -227,11 +227,11 @@ public class ReceiveLoan {
                         System.out.println("enter your wife or husband national Code : ");
                         information.setPartnerNationalCode(scanner.next());
                         information.setStudent(student);
-                        System.out.println("enter your address : ");
-                        information.setAddress(scanner.nextLine());
-                        scanner.next();
                         System.out.println("enter your Housing Rental Number :  6-digit");
-                        information.setHousingRentalNumber(scanner.next());
+                        String HousingRentalNumber = scanner.next();
+                        information.setHousingRentalNumber(HousingRentalNumber);
+                        System.out.println("enter your address : ");
+                        information.setAddress(scanner.next());
                         information.setCity(getCity());
                         try {
                             ApplicationContext.getInformationService().saveOrUpdate(information);

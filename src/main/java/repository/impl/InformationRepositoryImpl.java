@@ -22,8 +22,8 @@ public class InformationRepositoryImpl extends BaseRepositoryImpl<Information,Lo
 
 
     @Override
-    public boolean isStudentExistsByUsername(String nationalCode) {
-        TypedQuery<Long> query = em.createQuery("SELECT l FROM  Information l where l.student.nationalCode=:nationalCode ", Long.class);
+    public boolean isInformationExistsByUsername(String nationalCode) {
+        TypedQuery<Long> query = em.createQuery("select count( u ) from " + getEntityClass().getSimpleName() + " u where u.student.nationalCode= :nationalCode", Long.class);
         query.setParameter("nationalCode", nationalCode);
         Long count = query.getSingleResult();
         return count > 0;

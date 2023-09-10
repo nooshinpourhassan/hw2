@@ -18,15 +18,17 @@ public class InformationServiceImpl extends BaseServiceImpl<Information,Long, In
         return Information.class;
     }
 
-    @Override
-    public boolean isUserExistsByUsername(String nationalCode) {
-        return repository.isStudentExistsByUsername(nationalCode);
-    }
+
 
     @Override
     public Information saveOrUpdate(Information entity) {
         if (!isValid(entity))
             return null;
        else return super.saveOrUpdate(entity);
+    }
+
+    @Override
+    public boolean isInformationExistsByUsername(String nationalCode) {
+        return repository.isInformationExistsByUsername(nationalCode);
     }
 }
