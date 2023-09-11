@@ -22,6 +22,8 @@ public class Repayment extends BaseEntity<Long> {
     private double instalment;
     @ManyToOne
     private Loan loan;
+
+    private boolean paid;
     public Repayment() {
 
     }

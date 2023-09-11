@@ -2,6 +2,7 @@ package ui.menu;
 
 import entity.Information;
 import entity.Loan;
+import entity.Repayment;
 import entity.Student;
 import entity.enums.City;
 import entity.enums.GradeEnum;
@@ -14,9 +15,7 @@ import util.Constant;
 import util.SecurityContext;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 import static ui.menu.Menu.scanner;
 
@@ -273,5 +272,30 @@ public class ReceiveLoan {
                 default -> Printer.printMessage("Wrong input");
             }
         }
+    }
+    public static List<Double>  dividePrice(double price) {
+        double interest  = price * 0.04;
+        price= price+interest;
+        List<Double> dividedPrices = new ArrayList<>();
+        double partPrice = price / (Math.pow(2, 5) - 1);
+        double payments = partPrice / 12;
+        for (int j = 0 ; j< 5 ; j++) {
+            for (int i = 0; i < 12; i++) {
+                dividedPrices.add( Math.round(payments * 10) / 10.0);
+            }
+            payments *= 2;
+        }
+        return dividedPrices;
+    }
+
+    public static Collection<Repayment> saveRepayment(Loan loan){
+        List<Double> price = dividePrice(loan.getDebtBalance());
+        int number=1;
+        for (Double paid:  price) {
+            Repayment repayment = Repayment.builder()
+                    .number(number)
+                    .build();
+        }
+
     }
 }

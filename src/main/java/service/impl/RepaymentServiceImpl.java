@@ -17,4 +17,6 @@ public class RepaymentServiceImpl extends BaseServiceImpl<Repayment,Long, Repaym
     public Class<Repayment> getEntityClass() {
         return Repayment.class;
     }
+
+
 }
