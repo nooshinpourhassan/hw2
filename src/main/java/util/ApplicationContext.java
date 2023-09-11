@@ -1,21 +1,9 @@
 package util;
 
-import repository.InformationRepository;
-import repository.LoanRepository;
-import repository.StudentRepository;
-import repository.UniversityRepository;
-import repository.impl.InformationRepositoryImpl;
-import repository.impl.LoanRepositoryImpl;
-import repository.impl.StudentRepositoryImpl;
-import repository.impl.UniversityRepositoryImpl;
-import service.InformationService;
-import service.LoanService;
-import service.StudentService;
-import service.UniversityService;
-import service.impl.InformationServiceImpl;
-import service.impl.LoanServiceImpl;
-import service.impl.StudentServiceImpl;
-import service.impl.UniversityServiceImpl;
+import repository.*;
+import repository.impl.*;
+import service.*;
+import service.impl.*;
 import validator.EntityValidator;
 
 import javax.persistence.EntityManager;
@@ -40,7 +28,8 @@ public class ApplicationContext {
 
     private static final InformationRepository INFORMATION_REPOSITORY;
     private static final InformationService INFORMATION_SERVICE;
-
+    private static final RepaymentRepository REPAYMENT_REPOSITORY;
+    private static final RepaymentService REPAYMENT_SERVICE;
     static {
         EMF = Persistence.createEntityManagerFactory("default");
         EM = EMF.createEntityManager();
@@ -53,6 +42,8 @@ public class ApplicationContext {
         UNIVERSITY_SERVICE = new UniversityServiceImpl(UNIVERSITY_REPOSITORY,VALIDATOR,EM);
         INFORMATION_REPOSITORY = new InformationRepositoryImpl(EM);
         INFORMATION_SERVICE = new InformationServiceImpl(INFORMATION_REPOSITORY,VALIDATOR,EM);
+        REPAYMENT_REPOSITORY = new RepaymentRepositoryImpl(EM);
+        REPAYMENT_SERVICE = new RepaymentServiceImpl(REPAYMENT_REPOSITORY,VALIDATOR,EM);
     }
     public static StudentService getStudentService() {
         return STUDENT_SERVICE;
@@ -67,5 +58,8 @@ public class ApplicationContext {
     }
     public static InformationService getInformationService() {
         return INFORMATION_SERVICE;
+    }
+    public static RepaymentService getRepaymentService() {
+        return REPAYMENT_SERVICE;
     }
 }

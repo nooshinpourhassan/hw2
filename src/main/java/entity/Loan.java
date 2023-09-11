@@ -10,6 +10,7 @@ import lombok.Getter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Builder
@@ -30,6 +31,8 @@ public class Loan extends BaseEntity<Long> {
 
     @Enumerated(EnumType.STRING)
     private GradeEnum gradeEnum;
+    @OneToMany
+    private List<Repayment> repayments;
 
     public Loan() {
 
@@ -41,6 +44,7 @@ public class Loan extends BaseEntity<Long> {
                 "loanEnum=" + loanEnum +
                 ", debtBalance=" + debtBalance +
                 ", loanDate=" + loanDate +
+                ", repayments=" + repayments +
                 '}';
     }
 }
