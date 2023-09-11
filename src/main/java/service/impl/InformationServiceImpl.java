@@ -7,6 +7,7 @@ import service.InformationService;
 
 import javax.persistence.EntityManager;
 import javax.validation.Validator;
+import java.util.Optional;
 
 public class InformationServiceImpl extends BaseServiceImpl<Information,Long, InformationRepository> implements InformationService {
     public InformationServiceImpl(InformationRepository repository, Validator validator, EntityManager em) {
@@ -30,5 +31,10 @@ public class InformationServiceImpl extends BaseServiceImpl<Information,Long, In
     @Override
     public boolean isInformationExistsByUsername(String nationalCode) {
         return repository.isInformationExistsByUsername(nationalCode);
+    }
+
+    @Override
+    public Optional<Information> getInformationByStudentId(Long id) {
+        return repository.getInformationByStudentId(id);
     }
 }

@@ -89,6 +89,7 @@ public class Student extends BaseEntity<Long> {
                 ", gradeEnum=" + gradeEnum +
                 ", university=" + university +
                 ", loan=" + loan +
+                ", information=" + information +
                 '}';
     }
 }

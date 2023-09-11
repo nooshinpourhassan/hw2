@@ -48,6 +48,7 @@ public class ReceiveLoan {
                                 loanDate(LocalDate.now())
                                 .loanEnum(LoanEnum.TUITION_LOAN)
                                 .student(student)
+                                .gradeEnum(student.getGradeEnum())
                                 .build();
                         try {
                             ApplicationContext.getLoanService().saveOrUpdate(loan);
@@ -65,6 +66,7 @@ public class ReceiveLoan {
                                 loanDate(LocalDate.now())
                                 .loanEnum(LoanEnum.TUITION_LOAN)
                                 .student(student)
+                                .gradeEnum(student.getGradeEnum())
                                 .build();
                         try {
                             ApplicationContext.getLoanService().saveOrUpdate(loan);
@@ -72,12 +74,13 @@ public class ReceiveLoan {
                             System.out.println(e.getMessage());
                         }
                         System.out.println("successfully");
-                    } else {
+                    }if((student.getGradeEnum().equals(GradeEnum.DISCONTINUOUS_PROFESSIONAL_DOCTOR))){
                         Loan loan = Loan.builder()
                                 .debtBalance(6500000).
                                 loanDate(LocalDate.now())
                                 .loanEnum(LoanEnum.TUITION_LOAN)
                                 .student(student)
+                                .gradeEnum(student.getGradeEnum())
                                 .build();
                         try {
                             ApplicationContext.getLoanService().saveOrUpdate(loan);
@@ -111,6 +114,7 @@ public class ReceiveLoan {
                             loanDate(LocalDate.now())
                             .loanEnum(LoanEnum.EDUCATION_LOAN)
                             .student(student)
+                            .gradeEnum(student.getGradeEnum())
                             .build();
                     try {
                         ApplicationContext.getLoanService().saveOrUpdate(loan);
@@ -128,6 +132,7 @@ public class ReceiveLoan {
                             loanDate(LocalDate.now())
                             .loanEnum(LoanEnum.EDUCATION_LOAN)
                             .student(student)
+                            .gradeEnum(student.getGradeEnum())
                             .build();
                     try {
                         ApplicationContext.getLoanService().saveOrUpdate(loan);
@@ -135,12 +140,13 @@ public class ReceiveLoan {
                         System.out.println(e.getMessage());
                     }
                     System.out.println("successfully");
-                } else {
+                } if ((student.getGradeEnum().equals(GradeEnum.DISCONTINUOUS_PROFESSIONAL_DOCTOR))){
                     Loan loan = Loan.builder()
                             .debtBalance(2600000).
                             loanDate(LocalDate.now())
                             .loanEnum(LoanEnum.EDUCATION_LOAN)
                             .student(student)
+                            .gradeEnum(student.getGradeEnum())
                             .build();
                     try {
                         ApplicationContext.getLoanService().saveOrUpdate(loan);

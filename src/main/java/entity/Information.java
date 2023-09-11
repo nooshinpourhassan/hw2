@@ -35,4 +35,15 @@ public class Information extends BaseEntity<Long> {
     public Information() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Information{" +
+                "student=" + student +
+                ", address='" + address + '\'' +
+                ", partnerNationalCode='" + partnerNationalCode + '\'' +
+                ", housingRentalNumber='" + housingRentalNumber + '\'' +
+                ", city=" + city +
+                '}';
+    }
 }
