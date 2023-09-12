@@ -8,6 +8,7 @@ import entity.enums.City;
 import entity.enums.GradeEnum;
 import entity.enums.LoanEnum;
 import entity.enums.UniversityEnum;
+import ui.CheckDateForRepayment;
 import ui.Date;
 import ui.Printer;
 import util.ApplicationContext;
@@ -15,6 +16,8 @@ import util.Constant;
 import util.SecurityContext;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.*;
 
 import static ui.menu.Menu.scanner;
@@ -54,6 +57,8 @@ public class ReceiveLoan {
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
+                        Collection<Repayment> repayments = saveRepayment(loan);
+                        ApplicationContext.getRepaymentService().saveAll(repayments);
                         System.out.println("successfully");
                     }
                     if (student.getGradeEnum().equals(GradeEnum.DISCONTINUOUS_MASTER) ||
@@ -72,6 +77,8 @@ public class ReceiveLoan {
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
+                        Collection<Repayment> repayments = saveRepayment(loan);
+                        ApplicationContext.getRepaymentService().saveAll(repayments);
                         System.out.println("successfully");
                     }if((student.getGradeEnum().equals(GradeEnum.DISCONTINUOUS_PROFESSIONAL_DOCTOR))){
                         Loan loan = Loan.builder()
@@ -86,6 +93,8 @@ public class ReceiveLoan {
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
+                        Collection<Repayment> repayments = saveRepayment(loan);
+                        ApplicationContext.getRepaymentService().saveAll(repayments);
                         System.out.println("successfully");
                     }
                 }
@@ -120,6 +129,8 @@ public class ReceiveLoan {
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
+                    Collection<Repayment> repayments = saveRepayment(loan);
+                    ApplicationContext.getRepaymentService().saveAll(repayments);
                     System.out.println("successfully");
                 }
                 if (student.getGradeEnum().equals(GradeEnum.DISCONTINUOUS_MASTER) ||
@@ -138,6 +149,8 @@ public class ReceiveLoan {
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
+                    Collection<Repayment> repayments = saveRepayment(loan);
+                    ApplicationContext.getRepaymentService().saveAll(repayments);
                     System.out.println("successfully");
                 } if ((student.getGradeEnum().equals(GradeEnum.DISCONTINUOUS_PROFESSIONAL_DOCTOR))){
                     Loan loan = Loan.builder()
@@ -152,6 +165,8 @@ public class ReceiveLoan {
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
+                    Collection<Repayment> repayments = saveRepayment(loan);
+                    ApplicationContext.getRepaymentService().saveAll(repayments);
                     System.out.println("successfully");
                 }
             }
@@ -192,6 +207,8 @@ public class ReceiveLoan {
                          }catch (Exception e){
                              System.out.println(e.getMessage());
                          }
+                         Collection<Repayment> repayments = saveRepayment(loan);
+                         ApplicationContext.getRepaymentService().saveAll(repayments);
                      }else {
                          System.out.println("enter your wife or husband national Code : ");
                          information.setPartnerNationalCode(scanner.next());
@@ -210,9 +227,12 @@ public class ReceiveLoan {
                                      .gradeEnum(student.getGradeEnum())
                                      .debtBalance(student.getInformation().getCity().getLoan()).build();
                              ApplicationContext.getLoanService().saveOrUpdate(loan);
+                             Collection<Repayment> repayments = saveRepayment(loan);
+                             ApplicationContext.getRepaymentService().saveAll(repayments);
                          }catch (Exception e){
                              System.out.println(e.getMessage());
                          }
+
                      }
                     }
                 }else {
@@ -228,6 +248,8 @@ public class ReceiveLoan {
                         }catch (Exception e){
                             System.out.println(e.getMessage());
                         }
+                        Collection<Repayment> repayments = saveRepayment(loan);
+                        ApplicationContext.getRepaymentService().saveAll(repayments);
                     }else {
                         System.out.println("enter your wife or husband national Code : ");
                         information.setPartnerNationalCode(scanner.next());
@@ -247,9 +269,12 @@ public class ReceiveLoan {
                                     .gradeEnum(student.getGradeEnum())
                                     .debtBalance(student.getInformation().getCity().getLoan()).build();
                             ApplicationContext.getLoanService().saveOrUpdate(loan);
+                            Collection<Repayment> repayments = saveRepayment(loan);
+                            ApplicationContext.getRepaymentService().saveAll(repayments);
                         }catch (Exception e){
                             System.out.println(e.getMessage());
                         }
+
                     }
                 }
             }
@@ -289,13 +314,23 @@ public class ReceiveLoan {
     }
 
     public static Collection<Repayment> saveRepayment(Loan loan){
+        Collection<Repayment> repayments = new ArrayList<>();
         List<Double> price = dividePrice(loan.getDebtBalance());
         int number=1;
+        Year year= Year.of(CheckDateForRepayment.checkRepaymentDate(loan));
+        LocalDate sum= loan.getLoanDate().plusYears(year.getValue());
         for (Double paid:  price) {
             Repayment repayment = Repayment.builder()
                     .number(number)
+                    .repaymentDate(sum)
+                    .instalment(paid)
+                    .loan(loan)
+                    .paid(false)
                     .build();
+            repayments.add(repayment);
+            sum = sum.plusMonths(1);
+            number++;
         }
-
+        return repayments;
     }
 }

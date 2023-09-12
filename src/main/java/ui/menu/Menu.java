@@ -67,7 +67,7 @@ public class Menu {
         System.out.println("pleas Login...... ^_^ ");
     }
 
-    private static BankCart saveBankCart() {
+    public static BankCart saveBankCart() {
         BankCart bankCart=new BankCart();
         System.out.println("please Enter the bank account number :");
         bankCart.setCartNumber(scanner.next());

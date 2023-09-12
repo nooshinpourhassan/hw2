@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.Month;
 
 public class Date {
-    LocalDate currentDate = LocalDate.of(2023,02,27);
+   public static LocalDate currentDate = LocalDate.of(2028,02,27);
     LocalDate startNovember = LocalDate.of(currentDate.getYear(), Month.NOVEMBER, 1);
     LocalDate endNovember = startNovember.plusWeeks(1);
 

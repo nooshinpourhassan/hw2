@@ -17,7 +17,7 @@ public interface BaseService <T extends BaseEntity<ID>,ID extends Number> {
 
     long getCount();
 
-    Collection<T> saveAll(Collection<T> entityCollection);
+    void saveAll(Collection<T> entityCollection);
 
     void beginTransaction();
 

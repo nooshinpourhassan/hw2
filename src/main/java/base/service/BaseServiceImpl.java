@@ -62,8 +62,15 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Numbe
     }
 
     @Override
-    public Collection<T> saveAll(Collection<T> entityCollection) {
-        return repository.saveAll(entityCollection);
+    public void saveAll(Collection<T> entityCollection) {
+        beginTransaction();
+        try {
+            Collection<T> collection = repository.saveAll(entityCollection);
+            commitTransaction();
+        }catch (IllegalArgumentException e){
+            rollBack();
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
